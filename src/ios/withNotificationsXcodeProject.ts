@@ -330,6 +330,7 @@ console.log("Checking appPath - ", appPath);
     );
   } else {
     console.log(`${getTargetFile(file)} already exists. Skipping...`);
+    return
   }
 
   const group = xcodeProject.pbxCreateGroup('CustomerIONotifications');
