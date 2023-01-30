@@ -117,9 +117,8 @@ const addRichPushXcodeProj = async (
 
   await injectCIONotificationPodfileCode(iosPath, useFrameworks);
 
-   console.log("Checking if NSE folder already exists. Value is ", xcodeProject.pbxTargetByName(CIO_NOTIFICATION_TARGET_NAME))
   if (xcodeProject.pbxTargetByName(CIO_NOTIFICATION_TARGET_NAME)) {
-    console.log(
+    console.warn(
       `${CIO_NOTIFICATION_TARGET_NAME} already exists in project. Skipping...`
     );
     return;
@@ -171,12 +170,6 @@ const addRichPushXcodeProj = async (
   projObjects['PBXContainerItemProxy'] =
     projObjects['PBXTargetDependency'] || {};
 
-  if (xcodeProject.pbxTargetByName(CIO_NOTIFICATION_TARGET_NAME)) {
-    console.warn(
-      `${CIO_NOTIFICATION_TARGET_NAME} already exists in project. Skipping...`
-    );
-    return;
-  }
 
   // Add the new PBXGroup to the top level group. This makes the
   // files / folder appear in the file explorer in Xcode.
