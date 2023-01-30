@@ -315,14 +315,9 @@ async function addPushNotificationFile(
   const appPath = `${iosPath}/${appName}`;
   const getTargetFile = (filename: string) => `${appPath}/${filename}`;
 
-  // Check if `CustomerIONotifications` group already exist in the project
-  // If true then skip creating a new group to avoid duplicate folders
-  if (xcodeProject.pbxTargetByName("CustomerIONotifications")) {
-    console.log(
-      `CustomerIONotifications already exists in project. Skipping...`
-    );
-    return;
-  }
+  console.log("Getting target file name - ", getTargetFile(file));
+console.log("Checking appPath - ", appPath);
+
   if (!FileManagement.exists(getTargetFile(file))) {
     FileManagement.mkdir(appPath, {
       recursive: true,
