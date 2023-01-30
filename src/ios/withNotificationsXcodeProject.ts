@@ -156,18 +156,6 @@ const addRichPushXcodeProj = async (
     CIO_NOTIFICATION_TARGET_NAME
   );
 
-  // Add the new PBXGroup to the top level group. This makes the
-  // files / folder appear in the file explorer in Xcode.
-  const groups = xcodeProject.hash.project.objects['PBXGroup'];
-  console.log("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
-  Object.keys(groups).forEach((key) => {
-    if (groups[key].name === undefined) {
-      console.log(groups[key].name + " for some key "+ key);
-      xcodeProject.addToPbxGroup(extGroup.uuid, key);
-    }
-  });
-
-  // WORK AROUND for codeProject.addTarget BUG
   // Xcode projects don't contain these if there is only one target
   // An upstream fix should be made to the code referenced in this link:
   //   - https://github.com/apache/cordova-node-xcode/blob/8b98cabc5978359db88dc9ff2d4c015cba40f150/lib/pbxProject.js#L860
@@ -183,6 +171,16 @@ const addRichPushXcodeProj = async (
     return;
   }
 
+  // Add the new PBXGroup to the top level group. This makes the
+  // files / folder appear in the file explorer in Xcode.
+  const groups = xcodeProject.hash.project.objects['PBXGroup'];
+  console.log("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+  Object.keys(groups).forEach((key) => {
+    if (groups[key].name === undefined) {
+      console.log(groups[key].name + " for some key "+ key);
+      xcodeProject.addToPbxGroup(extGroup.uuid, key);
+    }
+  });
   // Add the NSE target
   // This also adds PBXTargetDependency and PBXContainerItemProxy
   const nseTarget = xcodeProject.addTarget(
