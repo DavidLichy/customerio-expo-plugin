@@ -160,10 +160,9 @@ const addRichPushXcodeProj = async (
   // files / folder appear in the file explorer in Xcode.
   const groups = xcodeProject.hash.project.objects['PBXGroup'];
   console.log("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
-  
   Object.keys(groups).forEach((key) => {
-    console.log(groups[key].name + "for some key "+ key);
     if (groups[key].name === undefined) {
+      console.log(groups[key].name + " for some key "+ key);
       xcodeProject.addToPbxGroup(extGroup.uuid, key);
     }
   });
