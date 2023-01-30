@@ -118,10 +118,9 @@ const addRichPushXcodeProj = async (
   await injectCIONotificationPodfileCode(iosPath, useFrameworks);
 
   const nsePath = `${iosPath}/${CIO_NOTIFICATION_TARGET_NAME}`;
-  FileManagement.mkdir(nsePath, {
-    recursive: true,
-  });
-return
+  // FileManagement.mkdir(nsePath, {
+  //   recursive: true,
+  // });
 
   const files = [
     PLIST_FILENAME,
