@@ -121,6 +121,7 @@ const addRichPushXcodeProj = async (
   FileManagement.mkdir(nsePath, {
     recursive: true,
   });
+return
 
   const files = [
     PLIST_FILENAME,
