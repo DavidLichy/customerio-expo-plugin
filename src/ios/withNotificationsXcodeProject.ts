@@ -159,6 +159,8 @@ const addRichPushXcodeProj = async (
   // Add the new PBXGroup to the top level group. This makes the
   // files / folder appear in the file explorer in Xcode.
   const groups = xcodeProject.hash.project.objects['PBXGroup'];
+  console.log("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+  console.log(groups);
   Object.keys(groups).forEach((key) => {
     if (groups[key].name === undefined) {
       xcodeProject.addToPbxGroup(extGroup.uuid, key);
