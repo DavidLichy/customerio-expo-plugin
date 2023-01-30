@@ -117,6 +117,13 @@ const addRichPushXcodeProj = async (
 
   await injectCIONotificationPodfileCode(iosPath, useFrameworks);
 
+  console.log("Checking if NSE folder already exists. Value is ", xcodeProject.pbxTargetByName(CIO_NOTIFICATION_TARGET_NAME))
+  if (xcodeProject.pbxTargetByName(CIO_NOTIFICATION_TARGET_NAME)) {
+    console.log(
+      `${CIO_NOTIFICATION_TARGET_NAME} already exists in project. Skipping...`
+    );
+    return;
+  }
   const nsePath = `${iosPath}/${CIO_NOTIFICATION_TARGET_NAME}`;
   // FileManagement.mkdir(nsePath, {
   //   recursive: true,
