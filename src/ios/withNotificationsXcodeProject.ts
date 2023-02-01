@@ -118,6 +118,14 @@ const addRichPushXcodeProj = async (
   await injectCIONotificationPodfileCode(iosPath, useFrameworks);
 
   const nsePath = `${iosPath}/${CIO_NOTIFICATION_TARGET_NAME}`;
+
+  if (FileManagement.exists(nsePath) && xcodeProject.pbxTargetByName(CIO_NOTIFICATION_TARGET_NAME)) {
+    console.warn(
+      `${CIO_NOTIFICATION_TARGET_NAME} already exists in project. Skipping...`
+    );
+    return;
+  }
+
   FileManagement.mkdir(nsePath, {
     recursive: true,
   });
@@ -173,13 +181,6 @@ const addRichPushXcodeProj = async (
   projObjects['PBXTargetDependency'] = projObjects['PBXTargetDependency'] || {};
   projObjects['PBXContainerItemProxy'] =
     projObjects['PBXTargetDependency'] || {};
-
-  if (xcodeProject.pbxTargetByName(CIO_NOTIFICATION_TARGET_NAME)) {
-    console.warn(
-      `${CIO_NOTIFICATION_TARGET_NAME} already exists in project. Skipping...`
-    );
-    return;
-  }
 
   // Add the NSE target
   // This also adds PBXTargetDependency and PBXContainerItemProxy
