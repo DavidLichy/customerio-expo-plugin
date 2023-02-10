@@ -325,9 +325,7 @@ async function addPushNotificationFile(
     console.log(`${getTargetFile(file)} already exists. Skipping...`);
   }
 
-  const group = xcodeProject.pbxCreateGroup('CustomerIONotifications');
-  const classesKey = xcodeProject.findPBXGroupKey({ name: `${appName}` });
-  xcodeProject.addToPbxGroup(group, classesKey);
-
-  xcodeProject.addSourceFile(`${appName}/${file}`, null, group);
+  // Add PushService.swift to the main target
+  const target = xcodeProject.getFirstTarget().uuid;
+  xcodeProject.addFile(`${appName}/${file}`, { target });
 }
