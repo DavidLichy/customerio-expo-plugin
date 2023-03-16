@@ -7,7 +7,7 @@ export const CIO_PROJECT_ALLPROJECTS_REGEX =
   /(allprojects\s*\{(.|\n){1,500}repositories\s*\{)/;
 
 export const CIO_PROJECT_GIST_MAVEN_SNIPPET =
-  '        maven { url "https://maven.gist.build" }';
+  '        maven { url "https://gitlab.com/api/v4/groups/bourbonltd/-/packages/maven" }';
 export const CIO_APP_GOOGLE_SNIPPET =
   'apply plugin: "com.google.gms.google-services"  // Google Services plugin';
 export const CIO_PROJECT_GOOGLE_SNIPPET =
