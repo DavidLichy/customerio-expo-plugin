@@ -158,7 +158,7 @@ const addRichPushXcodeProj = async (
     bundleShortVersion,
     infoPlistTargetFile,
   });
-  updateNseEnv(options, getTargetFile(ENV_FILENAME));
+  // updateNseEnv(options, getTargetFile(ENV_FILENAME));
 
   // Create new PBXGroup for the extension
   const extGroup = xcodeProject.addPbxGroup(
@@ -173,9 +173,13 @@ const addRichPushXcodeProj = async (
   Object.keys(groups).forEach((key) => {
     if (groups[key].name === undefined && groups[key].path === undefined) {
       xcodeProject.addToPbxGroup(extGroup.uuid, key);
+      console.log("This happened")
+      const groupEnv = xcodeProject.getPBXGroupByKey(key);
+      xcodeProject.addSourceFile(`${nsePath}/${ENV_FILENAME}`, null, groupEnv);
     }
   });
 
+  
   // WORK AROUND for codeProject.addTarget BUG
   // Xcode projects don't contain these if there is only one target
   // An upstream fix should be made to the code referenced in this link:
