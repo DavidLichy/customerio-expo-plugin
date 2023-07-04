@@ -355,11 +355,11 @@ async function addPushNotificationFile(
 
     // Check whether {file} exists in the project. If false, then add the file
     // If {file} exists then skip and return
-    if (!FileManagement.exists(getTargetFile(filename))) {
-      FileManagement.mkdir(appPath, {
-        recursive: true,
-      });
-    }
+    // if (!FileManagement.exists(getTargetFile(filename))) {
+    //   FileManagement.mkdir(appPath, {
+    //     recursive: true,
+    //   });
+    // }
     const targetFile = getTargetFile(filename);
     FileManagement.copyFile(
       `${LOCAL_PATH_TO_CIO_NSE_FILES}/${filename}`,
@@ -374,7 +374,7 @@ async function addPushNotificationFile(
   xcodeProject.addToPbxGroup(group, classesKey);
 
   xcodeProject.addSourceFile(`${appName}/${PUSHSERVICE_FILENAME}`, null, group);
-  xcodeProject.addSourceFile(`${CIO_NOTIFICATION_TARGET_NAME}/${ENV_FILENAME}`, null, group);
+  xcodeProject.addSourceFile(`${appName}/${ENV_FILENAME}`, null, group);
 }
 
 const updatePushFile = (
