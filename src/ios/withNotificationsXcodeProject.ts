@@ -354,15 +354,17 @@ async function addPushNotificationFile(
   const classesKey = xcodeProject.findPBXGroupKey({ name: `${appName}` });
   xcodeProject.addToPbxGroup(group, classesKey);
 
-  xcodeProject.addSourceFile(`${appName}/${file}`, null, group);
-
+  // Env.swift file is added as a reference from NSE target.
+  // In case `useRichPush` is `false` then NSE target is not created.
+  // In such case, this method checks if useRichPush is false then
+  // adds the Env.swift file to main target.
   let envFilePath =`${CIO_NOTIFICATION_TARGET_NAME}/${ENV_FILENAME}`
   if (!options.pushNotification?.useRichPush) {
     await addEnvFile(options);
     envFilePath = `${appName}/${ENV_FILENAME}`
-
   }
   xcodeProject.addSourceFile(envFilePath, null, group);
+  xcodeProject.addSourceFile(`${appName}/${file}`, null, group);
 }
 
 async function addEnvFile(options: CustomerIOPluginOptionsIOS) {
