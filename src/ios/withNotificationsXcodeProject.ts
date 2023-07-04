@@ -378,6 +378,8 @@ async function addEnvFile(options: CustomerIOPluginOptionsIOS) {
     `${LOCAL_PATH_TO_CIO_NSE_FILES}/${ENV_FILENAME}`,
     getTargetFile(ENV_FILENAME)
   );
+
+  updateNseEnv(options, getTargetFile(ENV_FILENAME));
 }
 
 const updatePushFile = (
