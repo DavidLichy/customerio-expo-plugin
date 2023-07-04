@@ -351,7 +351,7 @@ async function addPushNotificationFile(
   }
   updatePushFile(options, targetFile);
 
-  if (options.pushNotification?.useRichPush) {
+  if (!options.pushNotification?.useRichPush) {
     await addEnvFile(options);
   }
   const group = xcodeProject.pbxCreateGroup('CustomerIONotifications');
