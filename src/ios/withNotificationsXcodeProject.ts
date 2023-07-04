@@ -173,13 +173,10 @@ const addRichPushXcodeProj = async (
   Object.keys(groups).forEach((key) => {
     if (groups[key].name === undefined && groups[key].path === undefined) {
       xcodeProject.addToPbxGroup(extGroup.uuid, key);
-      console.log("This happened")
-      const groupEnv = xcodeProject.getPBXGroupByKey(key);
-      xcodeProject.addSourceFile(`${nsePath}/${ENV_FILENAME}`, null, groupEnv);
     }
   });
 
-  
+
   // WORK AROUND for codeProject.addTarget BUG
   // Xcode projects don't contain these if there is only one target
   // An upstream fix should be made to the code referenced in this link:
@@ -204,6 +201,7 @@ const addRichPushXcodeProj = async (
     CIO_NOTIFICATION_TARGET_NAME,
     `${bundleIdentifier}.richpush`
   );
+  xcodeProject.addToPbxGroup(getTargetFile(ENV_FILENAME), nseTarget.uuid);
 
   // Add build phases to the new target
   xcodeProject.addBuildPhase(
