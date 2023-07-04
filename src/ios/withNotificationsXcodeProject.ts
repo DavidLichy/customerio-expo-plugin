@@ -18,7 +18,6 @@ import { FileManagement } from './../helpers/utils/fileManagement';
 const PLIST_FILENAME = `${CIO_NOTIFICATION_TARGET_NAME}-Info.plist`;
 const ENV_FILENAME = 'Env.swift';
 const PUSHSERVICE_FILENAME = "PushService.swift"
-
 const TARGETED_DEVICE_FAMILY = `"1,2"`;
 
 const addNotificationServiceExtension = async (
@@ -33,7 +32,6 @@ const addNotificationServiceExtension = async (
     if (options.pushNotification?.useRichPush) {
       await addRichPushXcodeProj(options, xcodeProject);
     }
-
     return xcodeProject;
   } catch (error: any) {
     console.error(error);
@@ -140,7 +138,9 @@ const addRichPushXcodeProj = async (
     PLIST_FILENAME,
     'NotificationService.h',
     'NotificationService.swift',
-    'NotificationService.m'];
+    'NotificationService.m',
+    ENV_FILENAME,
+  ];
 
   const getTargetFile = (filename: string) => `${nsePath}/${filename}`;
 
@@ -159,7 +159,7 @@ const addRichPushXcodeProj = async (
     bundleShortVersion,
     infoPlistTargetFile,
   });
-  // updateNseEnv(options, getTargetFile(ENV_FILENAME));
+  updateNseEnv(options, getTargetFile(ENV_FILENAME));
 
   // Create new PBXGroup for the extension
   const extGroup = xcodeProject.addPbxGroup(
@@ -176,7 +176,6 @@ const addRichPushXcodeProj = async (
       xcodeProject.addToPbxGroup(extGroup.uuid, key);
     }
   });
-
 
   // WORK AROUND for codeProject.addTarget BUG
   // Xcode projects don't contain these if there is only one target
@@ -202,15 +201,10 @@ const addRichPushXcodeProj = async (
     CIO_NOTIFICATION_TARGET_NAME,
     `${bundleIdentifier}.richpush`
   );
-  console.log("Crafted 1")
-  console.log(nseTarget.key)
-  const group = xcodeProject.getPBXGroupByKey(nseTarget.uuid)
-  console.log(group)
-  // xcodeProject.addSourceFile(`${options.appName}/CustomerIONotifications/${ENV_FILENAME}`, null, nseTarget.uuid)
 
   // Add build phases to the new target
   xcodeProject.addBuildPhase(
-    ['NotificationService.m', 'NotificationService.swift'],
+    ['NotificationService.m', 'NotificationService.swift', 'Env.swift'],
     'PBXSourcesBuildPhase',
     'Sources',
     nseTarget.uuid
@@ -335,55 +329,34 @@ async function addPushNotificationFile(
   xcodeProject: any
 ) {
   const { iosPath, appName } = options;
-  const files = [
-    PUSHSERVICE_FILENAME,
-    ENV_FILENAME];
+  const file = PUSHSERVICE_FILENAME;
   const appPath = `${iosPath}/${appName}`;
   const getTargetFile = (filename: string) => `${appPath}/${filename}`;
-  // const targetFile = getTargetFile(file);
+  const targetFile = getTargetFile(file);
 
   // Check whether {file} exists in the project. If false, then add the file
   // If {file} exists then skip and return
-  // if (!FileManagement.exists(getTargetFile(file))) {
-  //   FileManagement.mkdir(appPath, {
-  //     recursive: true,
-  //   });
+  if (!FileManagement.exists(getTargetFile(file))) {
+    FileManagement.mkdir(appPath, {
+      recursive: true,
+    });
 
-  //   FileManagement.copyFile(
-  //     `${LOCAL_PATH_TO_CIO_NSE_FILES}/${file}`,
-  //     targetFile
-  //   );
-  // } else {
-  //   console.log(`${getTargetFile(file)} already exists. Skipping...`);
-  //   return;
-  // }
-
-  files.forEach((filename) => {
-
-    // Check whether {file} exists in the project. If false, then add the file
-    // If {file} exists then skip and return
-    // if (!FileManagement.exists(getTargetFile(filename))) {
-    //   FileManagement.mkdir(appPath, {
-    //     recursive: true,
-    //   });
-    // }
-    const targetFile = getTargetFile(filename);
     FileManagement.copyFile(
-      `${LOCAL_PATH_TO_CIO_NSE_FILES}/${filename}`,
+      `${LOCAL_PATH_TO_CIO_NSE_FILES}/${file}`,
       targetFile
     );
-  });
-  updatePushFile(options, getTargetFile(PUSHSERVICE_FILENAME));
-  updateNseEnv(options, getTargetFile(ENV_FILENAME));
+  } else {
+    console.log(`${getTargetFile(file)} already exists. Skipping...`);
+    return;
+  }
+  updatePushFile(options, targetFile);
 
   const group = xcodeProject.pbxCreateGroup('CustomerIONotifications');
   const classesKey = xcodeProject.findPBXGroupKey({ name: `${appName}` });
   xcodeProject.addToPbxGroup(group, classesKey);
 
-  xcodeProject.addSourceFile(`${appName}/${PUSHSERVICE_FILENAME}`, null, group);
-  xcodeProject.addSourceFile(`${appName}/${ENV_FILENAME}`, null, group);
-  console.log("Crafted 2")
-  console.log(group)
+  xcodeProject.addSourceFile(`${appName}/${file}`, null, group);
+  xcodeProject.addSourceFile(`${CIO_NOTIFICATION_TARGET_NAME}/${ENV_FILENAME}`, null, group);
 }
 
 const updatePushFile = (
@@ -391,9 +364,10 @@ const updatePushFile = (
   envFileName: string
 ) => {
   const REGISTER_RE = /\{\{REGISTER_SNIPPET\}\}/;
-  let envFileContent = FileManagement.readFile(envFileName);
-  let snippet = '';
 
+  let envFileContent = FileManagement.readFile(envFileName);
+
+  let snippet = '';
   if (
     options.disableNotificationRegistration !== undefined &&
     options.disableNotificationRegistration === false
