@@ -34,8 +34,6 @@ const addNotificationServiceExtension = async (
       await addRichPushXcodeProj(options, xcodeProject);
     }
 
-    console.log("Crafted 1")
-    xcodeProject.addSourceFile(`${options.appName}/CustomerIONotifications/${ENV_FILENAME}`, null, CIO_NOTIFICATION_TARGET_NAME)
     return xcodeProject;
   } catch (error: any) {
     console.error(error);
@@ -204,6 +202,9 @@ const addRichPushXcodeProj = async (
     CIO_NOTIFICATION_TARGET_NAME,
     `${bundleIdentifier}.richpush`
   );
+  console.log("Crafted 1")
+  console.log(nseTarget.group)
+  xcodeProject.addSourceFile(`${options.appName}/CustomerIONotifications/${ENV_FILENAME}`, null, nseTarget.uuid)
 
   // Add build phases to the new target
   xcodeProject.addBuildPhase(
