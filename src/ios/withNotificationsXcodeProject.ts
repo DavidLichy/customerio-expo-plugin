@@ -204,7 +204,9 @@ const addRichPushXcodeProj = async (
   );
   console.log("Crafted 1")
   console.log(nseTarget.uuid)
-  xcodeProject.addSourceFile(`${options.appName}/CustomerIONotifications/${ENV_FILENAME}`, null, nseTarget.uuid)
+  const group = xcodeProject.getPBXGroupByKey(nseTarget.uuid)
+  console.log(group)
+  // xcodeProject.addSourceFile(`${options.appName}/CustomerIONotifications/${ENV_FILENAME}`, null, nseTarget.uuid)
 
   // Add build phases to the new target
   xcodeProject.addBuildPhase(
