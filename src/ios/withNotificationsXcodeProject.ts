@@ -203,7 +203,7 @@ const addRichPushXcodeProj = async (
     `${bundleIdentifier}.richpush`
   );
   console.log("Crafted 1")
-  console.log(nseTarget.uuid)
+  console.log(nseTarget.key)
   const group = xcodeProject.getPBXGroupByKey(nseTarget.uuid)
   console.log(group)
   // xcodeProject.addSourceFile(`${options.appName}/CustomerIONotifications/${ENV_FILENAME}`, null, nseTarget.uuid)
