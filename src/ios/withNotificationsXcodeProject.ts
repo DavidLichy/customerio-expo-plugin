@@ -202,7 +202,7 @@ const addRichPushXcodeProj = async (
     `${bundleIdentifier}.richpush`
   );
 
-  xcodeProject.addSourceFile(`${options.appName}/${ENV_FILENAME}`, null, nseTarget);
+  xcodeProject.addToPbxGroup(`${options.appName}/CustomerIONotifications/${ENV_FILENAME}`, nseTarget.uuid);
   // Add build phases to the new target
   xcodeProject.addBuildPhase(
     ['NotificationService.m', 'NotificationService.swift', 'Env.swift'],
