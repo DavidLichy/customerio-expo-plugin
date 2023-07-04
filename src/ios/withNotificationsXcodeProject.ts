@@ -201,10 +201,8 @@ const addRichPushXcodeProj = async (
     CIO_NOTIFICATION_TARGET_NAME,
     `${bundleIdentifier}.richpush`
   );
-const group = xcodeProject.getPBXGroupByKey(nseTarget.uuid)
-console.log(`Got group detail, key = ${nseTarget.uuid}`)
-console.log(group)
-  xcodeProject.addToPbxGroup(`${options.appName}/${ENV_FILENAME}`, null, group);
+
+  xcodeProject.addToPbxGroup(`${options.appName}/${ENV_FILENAME}`, null, nseTarget);
   // Add build phases to the new target
   xcodeProject.addBuildPhase(
     ['NotificationService.m', 'NotificationService.swift', 'Env.swift'],
