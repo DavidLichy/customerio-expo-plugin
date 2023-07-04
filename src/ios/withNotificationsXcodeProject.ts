@@ -350,16 +350,19 @@ async function addPushNotificationFile(
     return;
   }
   updatePushFile(options, targetFile);
-
-  if (!options.pushNotification?.useRichPush) {
-    await addEnvFile(options);
-  }
   const group = xcodeProject.pbxCreateGroup('CustomerIONotifications');
   const classesKey = xcodeProject.findPBXGroupKey({ name: `${appName}` });
   xcodeProject.addToPbxGroup(group, classesKey);
 
   xcodeProject.addSourceFile(`${appName}/${file}`, null, group);
-  xcodeProject.addSourceFile(`${CIO_NOTIFICATION_TARGET_NAME}/${ENV_FILENAME}`, null, group);
+
+  let envFilePath =`${CIO_NOTIFICATION_TARGET_NAME}/${ENV_FILENAME}`
+  if (!options.pushNotification?.useRichPush) {
+    await addEnvFile(options);
+    envFilePath = `${appName}/${ENV_FILENAME}`
+
+  }
+  xcodeProject.addSourceFile(envFilePath, null, group);
 }
 
 async function addEnvFile(options: CustomerIOPluginOptionsIOS) {
