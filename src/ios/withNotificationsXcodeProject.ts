@@ -33,6 +33,9 @@ const addNotificationServiceExtension = async (
     if (options.pushNotification?.useRichPush) {
       await addRichPushXcodeProj(options, xcodeProject);
     }
+
+    console.log("Crafted 1")
+    xcodeProject.addSourceFile(`${options.appName}/CustomerIONotifications/${ENV_FILENAME}`, null, CIO_NOTIFICATION_TARGET_NAME)
     return xcodeProject;
   } catch (error: any) {
     console.error(error);
@@ -202,10 +205,9 @@ const addRichPushXcodeProj = async (
     `${bundleIdentifier}.richpush`
   );
 
-  xcodeProject.addToPbxGroup(`${options.appName}/CustomerIONotifications/${ENV_FILENAME}`, nseTarget.uuid);
   // Add build phases to the new target
   xcodeProject.addBuildPhase(
-    ['NotificationService.m', 'NotificationService.swift', 'Env.swift'],
+    ['NotificationService.m', 'NotificationService.swift'],
     'PBXSourcesBuildPhase',
     'Sources',
     nseTarget.uuid
@@ -377,6 +379,8 @@ async function addPushNotificationFile(
 
   xcodeProject.addSourceFile(`${appName}/${PUSHSERVICE_FILENAME}`, null, group);
   xcodeProject.addSourceFile(`${appName}/${ENV_FILENAME}`, null, group);
+  console.log("Crafted 2")
+  console.log(group)
 }
 
 const updatePushFile = (
