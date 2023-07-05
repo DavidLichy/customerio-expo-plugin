@@ -15,6 +15,10 @@ export const LOCAL_PATH_TO_CIO_NSE_FILES = path.join(
   pluginPackageRoot,
   'src/helpers/native-files/ios'
 );
+
+console.log(`Plugin root - ${pluginPackageRoot}`)
+console.log(`Full path - ${LOCAL_PATH_TO_RN_SDK}`)
+
 export const IOS_DEPLOYMENT_TARGET = '13.0';
 export const GROUP_IDENTIFIER_TEMPLATE_REGEX = /{{GROUP_IDENTIFIER}}/gm;
 export const BUNDLE_SHORT_VERSION_TEMPLATE_REGEX = /{{BUNDLE_SHORT_VERSION}}/gm;
