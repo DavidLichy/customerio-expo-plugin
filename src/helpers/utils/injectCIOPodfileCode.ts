@@ -17,11 +17,12 @@ export async function injectCIOPodfileCode(iosPath: string) {
     // Find that line in the Podfile and then we will insert our code above that line.
     const lineInPodfileToInjectSnippetBefore = /post_install do \|installer\|/;
 
-    const snippetToInjectInPodfile = `
-${blockStart}
-  pod 'customerio-reactnative/apn', :path => '${LOCAL_PATH_TO_RN_SDK}'
-${blockEnd}
-`.trim();
+    const snippetToInjectInPodfile = ""
+//     `
+// ${blockStart}
+//   pod 'customerio-reactnative/apn', :path => '${LOCAL_PATH_TO_RN_SDK}'
+// ${blockEnd}
+// `.trim();
 
     FileManagement.write(
       filename,

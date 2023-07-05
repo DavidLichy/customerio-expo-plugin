@@ -8,7 +8,7 @@ pluginPackageRoot = path.dirname(pluginPackageRoot);
 
 export const LOCAL_PATH_TO_RN_SDK = path.join(
   pluginPackageRoot,
-  '../customerio-reactnative/apn'
+  '../customerio-reactnative'
 )
 
 export const LOCAL_PATH_TO_CIO_NSE_FILES = path.join(
