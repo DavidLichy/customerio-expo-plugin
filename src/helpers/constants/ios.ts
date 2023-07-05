@@ -13,8 +13,9 @@ export const LOCAL_PATH_TO_RN_SDK = path.join(
 
 const packageName = 'customerio-reactnative';
 const packagePath = require.resolve(packageName);
+console.log('Package Path:', packagePath);
 const nodeModulesPath = path.resolve(packagePath, '../../');
-
+console.log('Node module Path:', nodeModulesPath);
 const relativePath = path.relative(nodeModulesPath, packagePath);
 console.log('Relative Path:', relativePath);
 
