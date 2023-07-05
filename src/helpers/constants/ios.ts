@@ -2,10 +2,6 @@ const finder = require('find-package-json');
 const path = require('path');
 
 const f = finder(__dirname);
-const monorepoRoot = path.resolve(__dirname, '../../')
-const nodeModulesPath = path.resolve(monorepoRoot, 'node_modules');
-console.log(`Monorepo node path = ${nodeModulesPath}`);
-
 let pluginPackageRoot = f.next().filename;
 // This is the path to the root of the customerio-expo-plugin package
 pluginPackageRoot = path.dirname(pluginPackageRoot);
@@ -14,8 +10,9 @@ export const LOCAL_PATH_TO_RN_SDK = path.join(
   pluginPackageRoot,
   '../customerio-reactnative'
 )
-console.log(`Plugin root path = ${pluginPackageRoot}`);
+console.log(`Plugin root - ${pluginPackageRoot}`)
 console.log(`Full path - ${LOCAL_PATH_TO_RN_SDK}`)
+
 
 export const LOCAL_PATH_TO_CIO_NSE_FILES = path.join(
   pluginPackageRoot,
