@@ -3,7 +3,7 @@ const path = require('path');
 
 const f = finder(__dirname);
 const monorepoRoot = path.resolve(__dirname, '../../')
-const nodeModulesPath = path.resolve(monorepoRoot, 'node_modules');
+const nodeModulesPath = path.resolve(monorepoRoot, 'node_modules','customerio-reactnative');
 console.log(`Monorepo node path = ${nodeModulesPath}`);
 
 let pluginPackageRoot = f.next().filename;
