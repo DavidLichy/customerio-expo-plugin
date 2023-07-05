@@ -5,7 +5,7 @@ import { FileManagement } from './fileManagement';
 
 export async function injectCIOPodfileCode(iosPath: string) {
   const blockStart = '# --- CustomerIO Host App START ---';
-  const blockEnd = '# --- CustomerIO Host App END ---';
+  // const blockEnd = '# --- CustomerIO Host App END ---';
 
   const filename = `${iosPath}/Podfile`;
   const podfile = await FileManagement.read(filename);
