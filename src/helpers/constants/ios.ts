@@ -1,8 +1,9 @@
 const finder = require('find-package-json');
 const path = require('path');
+const { findMonorepoRoot } = require('@expo/config');
 
 const f = finder(__dirname);
-const monorepoRoot = path.resolve(__dirname, '../../')
+const monorepoRoot = path.findMonorepoRoot();
 const nodeModulesPath = path.resolve(monorepoRoot, 'node_modules','customerio-reactnative');
 console.log(`Monorepo node path = ${nodeModulesPath}`);
 
