@@ -10,9 +10,6 @@ export const LOCAL_PATH_TO_RN_SDK = path.join(
   pluginPackageRoot,
   '../customerio-reactnative'
 )
-console.log(`Plugin root - ${pluginPackageRoot}`)
-console.log(`Full path - ${LOCAL_PATH_TO_RN_SDK}`)
-
 
 export const LOCAL_PATH_TO_CIO_NSE_FILES = path.join(
   pluginPackageRoot,
