@@ -11,6 +11,13 @@ export const LOCAL_PATH_TO_RN_SDK = path.join(
   '../customerio-reactnative'
 )
 
+const packageName = 'customerio-reactnative';
+const packagePath = require.resolve(packageName);
+const nodeModulesPath = path.resolve(packagePath, '../../');
+
+const relativePath = path.relative(nodeModulesPath, packagePath);
+console.log('Relative Path:', relativePath);
+
 export const LOCAL_PATH_TO_CIO_NSE_FILES = path.join(
   pluginPackageRoot,
   'src/helpers/native-files/ios'
