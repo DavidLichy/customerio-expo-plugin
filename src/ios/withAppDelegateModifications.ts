@@ -20,13 +20,13 @@ import {
   CIO_RCTBRIDGE_DEEPLINK_MODIFIEDOPTIONS_REGEX,
   CIO_RCTBRIDGE_DEEPLINK_MODIFIEDOPTIONS_SNIPPET,
   CIO_WILLPRESENTNOTIFICATIONHANDLER_SNIPPET,
-  EXPO_VERSION,
 } from '../helpers/constants/ios';
 import {
   injectCodeBeforeMultiLineRegex,
   injectCodeByLineNumber,
   injectCodeByMultiLineRegex,
   injectCodeByMultiLineRegexAndReplaceLine,
+  matchRegexExists,
   replaceCodeByRegex,
 } from '../helpers/utils/codeInjection';
 import { FileManagement } from '../helpers/utils/fileManagement';
@@ -167,6 +167,10 @@ ${interfaceDeclaration.trim()} <${CIO_APPDELEGATEHEADER_USER_NOTIFICATION_CENTER
 // If it does then replace with RCTBridge
 // Otherwise find the  match for >= 48 and replace 
 const addHandleDeeplinkInKilledState = (stringContents: string) => {
+
+  if (matchRegexExists(stringContents, CIO_RCTBRIDGE_DEEPLINK_MODIFIEDOPTIONS_REGEX)) {
+    console.log("Cool match")
+  }
   stringContents = addHandleDeeplinkInKilledStateConfiguration(stringContents)
   stringContents = replaceCodeByRegex(stringContents, CIO_RCTBRIDGE_DEEPLINK_MODIFIEDOPTIONS_REGEX, CIO_RCTBRIDGE_DEEPLINK_MODIFIEDOPTIONS_SNIPPET);
   return stringContents
