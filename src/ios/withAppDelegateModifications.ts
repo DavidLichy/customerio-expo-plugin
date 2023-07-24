@@ -42,7 +42,6 @@ const additionalMethodsForPushNotifications = `${pushCodeSnippets.join(
 )}\n`; // Join newlines and ensure a newline at the end.
 
 const addImport = (stringContents: string, appName: string) => {
-  console.log(`Version - ${EXPO_VERSION}`);
   const importRegex = /^(#import .*)\n/gm;
   const addedImport = getImportSnippet(appName);
 
@@ -164,11 +163,15 @@ ${interfaceDeclaration.trim()} <${CIO_APPDELEGATEHEADER_USER_NOTIFICATION_CENTER
   return stringContents;
 };
 
+// Add a method to find if regex for < 48 returns true
+// If it does then replace with RCTBridge
+// Otherwise find the  match for >= 48 and replace 
 const addHandleDeeplinkInKilledState = (stringContents: string) => {
   stringContents = addHandleDeeplinkInKilledStateConfiguration(stringContents)
   stringContents = replaceCodeByRegex(stringContents, CIO_RCTBRIDGE_DEEPLINK_MODIFIEDOPTIONS_REGEX, CIO_RCTBRIDGE_DEEPLINK_MODIFIEDOPTIONS_SNIPPET);
   return stringContents
 }
+
 export const withAppDelegateModifications: ConfigPlugin<
   CustomerIOPluginOptionsIOS
 > = (configOuter, props) => {
