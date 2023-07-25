@@ -26,7 +26,6 @@ import {
   injectCodeByLineNumber,
   injectCodeByMultiLineRegex,
   injectCodeByMultiLineRegexAndReplaceLine,
-  matchRegexExists,
   replaceCodeByRegex,
 } from '../helpers/utils/codeInjection';
 import { FileManagement } from '../helpers/utils/fileManagement';
@@ -168,9 +167,9 @@ ${interfaceDeclaration.trim()} <${CIO_APPDELEGATEHEADER_USER_NOTIFICATION_CENTER
 // Otherwise find the  match for >= 48 and replace 
 const addHandleDeeplinkInKilledState = (stringContents: string) => {
 
-  if (matchRegexExists(stringContents, CIO_RCTBRIDGE_DEEPLINK_MODIFIEDOPTIONS_REGEX)) {
-    console.log("Cool match")
-  }
+  // if (matchRegexExists(stringContents, CIO_RCTBRIDGE_DEEPLINK_MODIFIEDOPTIONS_REGEX)) {
+  //   console.log("Cool match")
+  // }
   stringContents = addHandleDeeplinkInKilledStateConfiguration(stringContents)
   stringContents = replaceCodeByRegex(stringContents, CIO_RCTBRIDGE_DEEPLINK_MODIFIEDOPTIONS_REGEX, CIO_RCTBRIDGE_DEEPLINK_MODIFIEDOPTIONS_SNIPPET);
   return stringContents
