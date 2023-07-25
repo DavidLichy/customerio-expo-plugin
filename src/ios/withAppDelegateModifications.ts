@@ -18,7 +18,6 @@ import {
   CIO_DIDREGISTERFORREMOTENOTIFICATIONSWITHDEVICETOKEN_SNIPPET,
   CIO_LAUNCHOPTIONS_DEEPLINK_MODIFIEDOPTIONS_REGEX,
   CIO_PUSHNOTIFICATIONHANDLERDECLARATION_SNIPPET,
-  CIO_RCTBRIDGE_DEEPLINK_MODIFIEDOPTIONS_REGEX,
   CIO_RCTBRIDGE_DEEPLINK_MODIFIEDOPTIONS_SNIPPET,
   CIO_WILLPRESENTNOTIFICATIONHANDLER_SNIPPET,
 } from '../helpers/constants/ios';
@@ -27,7 +26,6 @@ import {
   injectCodeByLineNumber,
   injectCodeByMultiLineRegex,
   injectCodeByMultiLineRegexAndReplaceLine,
-  matchRegexExists,
   replaceCodeByRegex,
 } from '../helpers/utils/codeInjection';
 import { FileManagement } from '../helpers/utils/fileManagement';
