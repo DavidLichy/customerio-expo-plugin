@@ -95,10 +95,10 @@ const addUserNotificationCenterConfiguration = (stringContents: string) => {
   return stringContents;
 };
 
-const addHandleDeeplinkInKilledStateConfiguration = (stringContents: string) => {
+const addHandleDeeplinkInKilledStateConfiguration = (stringContents: string, regex: RegExp) => {
   stringContents = injectCodeBeforeMultiLineRegex(
     stringContents,
-    CIO_RCTBRIDGE_DEEPLINK_MODIFIEDOPTIONS_REGEX,
+    regex,
     CIO_CONFIGUREDEEPLINK_KILLEDSTATE_SNIPPET
   );
 
@@ -169,18 +169,18 @@ ${interfaceDeclaration.trim()} <${CIO_APPDELEGATEHEADER_USER_NOTIFICATION_CENTER
 // Otherwise find the  match for >= 48 and replace 
 const addHandleDeeplinkInKilledState = (stringContents: string) => {
 
-  if (matchRegexExists(stringContents, CIO_RCTBRIDGE_DEEPLINK_MODIFIEDOPTIONS_REGEX)) {
-    console.log("Cool match")
-  }
-  else if (matchRegexExists(stringContents, CIO_LAUNCHOPTIONS_DEEPLINK_MODIFIEDOPTIONS_REGEX))
-  {
-    console.log("I am a super match")
-  } else {
-    console.log("No match found")
-  }
+  // if (matchRegexExists(stringContents, CIO_RCTBRIDGE_DEEPLINK_MODIFIEDOPTIONS_REGEX)) {
+  //   console.log("Cool match")
+  // }
+  // else if (matchRegexExists(stringContents, CIO_LAUNCHOPTIONS_DEEPLINK_MODIFIEDOPTIONS_REGEX))
+  // {
+  //   console.log("I am a super match")
+  // } else {
+  //   console.log("No match found")
+  // }
   
-  stringContents = addHandleDeeplinkInKilledStateConfiguration(stringContents)
-  stringContents = replaceCodeByRegex(stringContents, CIO_RCTBRIDGE_DEEPLINK_MODIFIEDOPTIONS_REGEX, CIO_RCTBRIDGE_DEEPLINK_MODIFIEDOPTIONS_SNIPPET);
+  stringContents = addHandleDeeplinkInKilledStateConfiguration(stringContents, CIO_LAUNCHOPTIONS_DEEPLINK_MODIFIEDOPTIONS_REGEX)
+  stringContents = replaceCodeByRegex(stringContents, CIO_LAUNCHOPTIONS_DEEPLINK_MODIFIEDOPTIONS_REGEX, CIO_RCTBRIDGE_DEEPLINK_MODIFIEDOPTIONS_SNIPPET);
   return stringContents
 }
 
