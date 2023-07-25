@@ -175,7 +175,10 @@ const addHandleDeeplinkInKilledState = (stringContents: string) => {
   else if (matchRegexExists(stringContents, CIO_LAUNCHOPTIONS_DEEPLINK_MODIFIEDOPTIONS_REGEX))
   {
     console.log("I am a super match")
+  } else {
+    console.log("No match found")
   }
+  
   stringContents = addHandleDeeplinkInKilledStateConfiguration(stringContents)
   stringContents = replaceCodeByRegex(stringContents, CIO_RCTBRIDGE_DEEPLINK_MODIFIEDOPTIONS_REGEX, CIO_RCTBRIDGE_DEEPLINK_MODIFIEDOPTIONS_SNIPPET);
   return stringContents
