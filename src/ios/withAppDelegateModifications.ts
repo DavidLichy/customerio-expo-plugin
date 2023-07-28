@@ -21,6 +21,7 @@ import {
   CIO_PUSHNOTIFICATIONHANDLERDECLARATION_SNIPPET,
   CIO_RCTBRIDGE_DEEPLINK_MODIFIEDOPTIONS_SNIPPET,
   CIO_WILLPRESENTNOTIFICATIONHANDLER_SNIPPET,
+  CIO_LAUNCHOPTIONS_MODIFIEDOPTIONS_REGEX,
 } from '../helpers/constants/ios';
 import {
   injectCodeBeforeMultiLineRegex,
@@ -182,7 +183,7 @@ const addHandleDeeplinkInKilledState = (stringContents: string) => {
   // This is ok for all cases
   stringContents = addHandleDeeplinkInKilledStateConfiguration(stringContents, CIO_LAUNCHOPTIONS_DEEPLINK_MODIFIEDOPTIONS_REGEX)
   // Change this based on condition above
-  stringContents = replaceCodeByRegex(stringContents, CIO_LAUNCHOPTIONS_DEEPLINK_MODIFIEDOPTIONS_REGEX, CIO_RCTBRIDGE_DEEPLINK_MODIFIEDOPTIONS_SNIPPET);
+  stringContents = replaceCodeByRegex(stringContents, CIO_LAUNCHOPTIONS_DEEPLINK_MODIFIEDOPTIONS_REGEX, CIO_LAUNCHOPTIONS_MODIFIEDOPTIONS_REGEX);
   return stringContents
 }
 
