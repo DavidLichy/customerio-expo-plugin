@@ -10,6 +10,7 @@ import {
   CIO_CONFIGURECIOSDKUSERNOTIFICATIONCENTER_SNIPPET,
   CIO_CONFIGUREDEEPLINK_KILLEDSTATE_SNIPPET,
   CIO_DIDFAILTOREGISTERFORREMOTENOTIFICATIONSWITHERRORFULL_REGEX,
+  CIO_RCTBRIDGE_DEEPLINK_MODIFIEDOPTIONS_REGEX,
   CIO_DIDFAILTOREGISTERFORREMOTENOTIFICATIONSWITHERROR_REGEX,
   CIO_DIDFAILTOREGISTERFORREMOTENOTIFICATIONSWITHERROR_SNIPPET,
   CIO_DIDFINISHLAUNCHINGMETHOD_REGEX,
@@ -27,6 +28,7 @@ import {
   injectCodeByMultiLineRegex,
   injectCodeByMultiLineRegexAndReplaceLine,
   replaceCodeByRegex,
+  matchRegexExists
 } from '../helpers/utils/codeInjection';
 import { FileManagement } from '../helpers/utils/fileManagement';
 import type { CustomerIOPluginOptionsIOS } from '../types/cio-types';
@@ -167,15 +169,15 @@ ${interfaceDeclaration.trim()} <${CIO_APPDELEGATEHEADER_USER_NOTIFICATION_CENTER
 // Otherwise find the  match for >= 48 and replace 
 const addHandleDeeplinkInKilledState = (stringContents: string) => {
 
-  // if (matchRegexExists(stringContents, CIO_RCTBRIDGE_DEEPLINK_MODIFIEDOPTIONS_REGEX)) {
-  //   console.log("Cool match")
-  // }
-  // else if (matchRegexExists(stringContents, CIO_LAUNCHOPTIONS_DEEPLINK_MODIFIEDOPTIONS_REGEX))
-  // {
-  //   console.log("I am a super match")
-  // } else {
-  //   console.log("No match found")
-  // }
+  if (matchRegexExists(stringContents, CIO_RCTBRIDGE_DEEPLINK_MODIFIEDOPTIONS_REGEX)) {
+    console.log("Cool match")
+  }
+  else if (matchRegexExists(stringContents, CIO_LAUNCHOPTIONS_DEEPLINK_MODIFIEDOPTIONS_REGEX))
+  {
+    console.log("I am a super match")
+  } else {
+    console.log("No match found")
+  }
   
   stringContents = addHandleDeeplinkInKilledStateConfiguration(stringContents, CIO_LAUNCHOPTIONS_DEEPLINK_MODIFIEDOPTIONS_REGEX)
   stringContents = replaceCodeByRegex(stringContents, CIO_LAUNCHOPTIONS_DEEPLINK_MODIFIEDOPTIONS_REGEX, CIO_RCTBRIDGE_DEEPLINK_MODIFIEDOPTIONS_SNIPPET);
