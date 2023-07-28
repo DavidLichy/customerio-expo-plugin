@@ -52,7 +52,7 @@ export const CIO_RCTBRIDGE_DEEPLINK_MODIFIEDOPTIONS_SNIPPET = `
 RCTBridge *bridge = [self.reactDelegate createBridgeWithDelegate:self launchOptions:modifiedLaunchOptions];
 `;
 
-export const CIO_LAUNCHOPTIONS_MODIFIEDOPTIONS_REGEX = `
+export const CIO_LAUNCHOPTIONS_MODIFIEDOPTIONS_SNIPPET = `
 return [super application:application didFinishLaunchingWithOptions:modifiedLaunchOptions];`
 
 export const CIO_DIDFAILTOREGISTERFORREMOTENOTIFICATIONSWITHERROR_SNIPPET = `
