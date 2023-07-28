@@ -22,6 +22,7 @@ import {
   // CIO_RCTBRIDGE_DEEPLINK_MODIFIEDOPTIONS_SNIPPET,
   CIO_WILLPRESENTNOTIFICATIONHANDLER_SNIPPET,
   CIO_LAUNCHOPTIONS_MODIFIEDOPTIONS_SNIPPET,
+  CIO_RCTBRIDGE_DEEPLINK_MODIFIEDOPTIONS_SNIPPET,
 } from '../helpers/constants/ios';
 import {
   injectCodeBeforeMultiLineRegex,
@@ -165,25 +166,19 @@ ${interfaceDeclaration.trim()} <${CIO_APPDELEGATEHEADER_USER_NOTIFICATION_CENTER
   return stringContents;
 };
 
-// Add a method to find if regex for < 48 returns true
-// If it does then replace with RCTBridge
-// Otherwise find the  match for >= 48 and replace 
-const addHandleDeeplinkInKilledState = (stringContents: string) => {
-
+const addHandleDeeplinkInKilledState = (stringContents: string) => {  
+  var snippet = undefined
   if (matchRegexExists(stringContents, CIO_RCTBRIDGE_DEEPLINK_MODIFIEDOPTIONS_REGEX)) {
-    console.log("Cool match")
+    snippet = CIO_RCTBRIDGE_DEEPLINK_MODIFIEDOPTIONS_SNIPPET;
   }
   else if (matchRegexExists(stringContents, CIO_LAUNCHOPTIONS_DEEPLINK_MODIFIEDOPTIONS_REGEX))
   {
-    console.log("I am a super match")
-  } else {
-    console.log("No match found")
+    snippet = CIO_LAUNCHOPTIONS_MODIFIEDOPTIONS_SNIPPET;
   }
-  
-  // This is ok for all cases
+  if (snippet !== undefined) {
   stringContents = addHandleDeeplinkInKilledStateConfiguration(stringContents, CIO_LAUNCHOPTIONS_DEEPLINK_MODIFIEDOPTIONS_REGEX)
-  // Change this based on condition above
-  stringContents = replaceCodeByRegex(stringContents, CIO_LAUNCHOPTIONS_DEEPLINK_MODIFIEDOPTIONS_REGEX, CIO_LAUNCHOPTIONS_MODIFIEDOPTIONS_SNIPPET);
+  stringContents = replaceCodeByRegex(stringContents, CIO_LAUNCHOPTIONS_DEEPLINK_MODIFIEDOPTIONS_REGEX, snippet);
+  }
   return stringContents
 }
 
