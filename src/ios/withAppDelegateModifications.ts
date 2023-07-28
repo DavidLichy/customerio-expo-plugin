@@ -169,7 +169,6 @@ ${interfaceDeclaration.trim()} <${CIO_APPDELEGATEHEADER_USER_NOTIFICATION_CENTER
 // Otherwise find the  match for >= 48 and replace 
 const addHandleDeeplinkInKilledState = (stringContents: string) => {
 
-  console.log(stringContents);
   if (matchRegexExists(stringContents, CIO_RCTBRIDGE_DEEPLINK_MODIFIEDOPTIONS_REGEX)) {
     console.log("Cool match")
   }
@@ -180,7 +179,9 @@ const addHandleDeeplinkInKilledState = (stringContents: string) => {
     console.log("No match found")
   }
   
+  // This is ok for all cases
   stringContents = addHandleDeeplinkInKilledStateConfiguration(stringContents, CIO_LAUNCHOPTIONS_DEEPLINK_MODIFIEDOPTIONS_REGEX)
+  // Change this based on condition above
   stringContents = replaceCodeByRegex(stringContents, CIO_LAUNCHOPTIONS_DEEPLINK_MODIFIEDOPTIONS_REGEX, CIO_RCTBRIDGE_DEEPLINK_MODIFIEDOPTIONS_SNIPPET);
   return stringContents
 }
