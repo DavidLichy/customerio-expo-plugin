@@ -1,0 +1,7 @@
+{
+  "name": "customerio-expo-plugin",
+  "platforms": ["ios", "android"],
+  "ios": {
+    "appDelegateSubscribers": ["ExpoAppDelegateSubscriberTestiosApp"],
+  }
+}
